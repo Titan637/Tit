@@ -31,7 +31,7 @@ thread_count = 900
 packet_size = 9
 ADMIN_FILE = 'admin_data.json'
 last_attack_times = {}
-COOLDOWN_MINUTES = 60
+COOLDOWN_MINUTES = 1
 
 def check_cooldown(user_id: int) -> tuple[bool, int]:
     """
@@ -44,7 +44,7 @@ def check_cooldown(user_id: int) -> tuple[bool, int]:
     last_attack = last_attack_times[user_id]
     current_time = datetime.now()
     time_diff = current_time - last_attack
-    cooldown_seconds = COOLDOWN_MINUTES * 60
+    cooldown_seconds = COOLDOWN_MINUTES * 1
     
     if time_diff.total_seconds() < cooldown_seconds:
         remaining = cooldown_seconds - time_diff.total_seconds()
@@ -371,8 +371,8 @@ def attack_command(message):
     # Check cooldown first, regardless of admin status
     in_cooldown, remaining = check_cooldown(user_id)
     if in_cooldown:
-        minutes = remaining // 60
-        seconds = remaining % 60
+        minutes = remaining // 1
+        seconds = remaining % 1
         bot.send_message(
             chat_id,
             f"*⏰ Cooldown in progress! Please wait {minutes}m {de}s before starting another attack.*",
@@ -411,8 +411,8 @@ def process_attack_command(message, chat_id):
         # Double-check cooldown when processing the attack
         in_cooldown, remaining = check_cooldown(user_id)
         if in_cooldown:
-            minutes = remaining // 60
-            seconds = remaining % 60
+            minutes = remaining // 1
+            seconds = remaining % 1
             bot.send_message(
                 chat_id,
                 f"*⏰ Cooldown in progress! Please wait {minutes}m {seconds}s before starting another attack.*",
@@ -809,8 +809,8 @@ def attack_button_handler(message):
     # Check cooldown first, regardless of admin status
     in_cooldown, remaining = check_cooldown(user_id)
     if in_cooldown:
-        minutes = remaining // 60
-        seconds = remaining % 60
+        minutes = remaining // 1
+        seconds = remaining % 1
         bot.send_message(
             chat_id,
             f"*⏰ Cooldown in progress! Please wait {minutes}m {seconds}s before starting another attack.*",
